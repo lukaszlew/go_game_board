@@ -8,3 +8,16 @@ arrayvec = "0.7.6"
 lazy_static = "1.4"
 perf-event = "0.4"
 go_game_types = { path = "../go_game_types" }
+
+# Default profile for users - fast compilation, decent performance
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
+
+# Custom profile for benchmarking - users won't use this accidentally
+[profile.release-lto]
+inherits = "release"
+lto = "fat"
+codegen-units = 1

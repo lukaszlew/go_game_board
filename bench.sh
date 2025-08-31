@@ -45,33 +45,16 @@ sudo sh -c "for irq in /proc/irq/*/smp_affinity_list; do
     fi
 done" 2>/dev/null || echo "  Skipped (sudo failed)"
 
-# 6. Create/update Cargo config for non-incremental builds
-mkdir -p .cargo
-cat > .cargo/config.toml << 'EOF'
-[build]
-incremental = false
-
-[profile.release]
-codegen-units = 1
-lto = "fat"
-EOF
-
-echo "Created .cargo/config.toml with incremental=false and codegen-units=1"
-
-# 7. Build and run with optimized settings
+# 6. Build and run with optimized settings
 echo "Building and running with optimized settings..."
 
-# Export environment variables for build
-export RUSTFLAGS_BOOTSTRAP="-Ccodegen-units=1"
-export RUSTFLAGS="-Ccodegen-units=1"
+# Build first with custom profile
+echo "Building with release-lto profile..."
+cargo build --profile release-lto
 
-# Build first
-echo "Building release binary..."
-cargo build --release
-
-# Run with CPU affinity
+# Run with CPU affinity using custom profile
 echo "Running benchmark pinned to CPU $CPU_CORE..."
-taskset -c $CPU_CORE cargo run --release
+taskset -c $CPU_CORE cargo test --profile release-lto --test benchmark_test -- --nocapture
 
 # Cleanup function
 cleanup() {
