@@ -2,6 +2,11 @@
 name = "go_game_board"
 version = "0.1.0"
 edition = "2021"
+description = "Go/Baduk/Weiqi rules implementation with libEGo-based algorithms"
+license = "Apache-2.0"
+repository = "https://github.com/lukaszlew/go_game_board"
+keywords = ["go", "baduk", "weiqi", "board", "game"]
+categories = ["game-development", "algorithms"]
 
 [dependencies]
 arrayvec = "0.7.6"
