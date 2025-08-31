@@ -7,7 +7,7 @@ edition = "2021"
 arrayvec = "0.7.6"
 lazy_static = "1.4"
 perf-event = "0.4"
-go_game_types = { path = "../go_game_types" }
+go_game_types = "1.0.1"
 
 # Default profile for users - fast compilation, decent performance
 [profile.dev]
