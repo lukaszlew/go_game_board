@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+arrayvec = "0.7.6"
+lazy_static = "1.4"
+perf-event = "0.4"
+go_game_types = { path = "../go_game_types" }
